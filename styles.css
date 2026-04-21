@@ -1,21 +1,31 @@
-/* pink & blue Spider-Man color theme using css variables with fallbacks,
+/* pink and blue Spider-Man color theme using css variables with fallbacks,
    hex, rgb, hsl, rgba, named colors, and color-mix() for wider-gamut */
 :root {
   --blue: #1565c0;
   --pink: #d16ca3;
 }
 
-/* reset default spacing and set the base font */
+/* universal selector to normalize box sizing across every element */
+* {
+  box-sizing: border-box;
+}
+
+/* resets default spacing and sets the base font */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #fff0f5;
   color: rgb(26, 26, 46);
   margin: 0;
   padding: 0;
-  min-width: 320px; /* keeps things from collapsing too narrow */
+  min-width: 320px;
 }
 
-/* sticky so the nav stays on screen while you scroll */
+/* selector list to apply shared base styles to all headings at once */
+h2, h3 {
+  font-weight: 600;
+}
+
+/* sticky so the nav stays visible while you scroll */
 header {
   background-color: var(--blue, #1565c0);
   color: white;
@@ -23,6 +33,11 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+/* child combinator targets only the div that's a direct child of header */
+header > div {
+  text-align: center;
 }
 
 header h1 {
@@ -41,7 +56,7 @@ header h2 {
   margin-bottom: 0.25rem;
 }
 
-/* flexbox nav: wraps onto multiple lines on small screens */
+/* flexbox nav that wraps onto multiple lines on small screens */
 nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -78,12 +93,12 @@ nav a:active {
   background-color: hsl(326, 80%, 30%);
 }
 
-/* hide the raw <hr> tags; the grid gap handles spacing instead */
+/* hide the raw hr tags since the grid gap handles spacing instead */
 hr {
   display: none;
 }
 
-/* grid layout for the main content area; centered with auto margins */
+/* grid layout for the page content with auto margins to keep it centered */
 main {
   display: grid;
   grid-template-columns: 1fr;
@@ -99,7 +114,7 @@ main {
   margin-left: auto;
 }
 
-/* each section gets a card-like look with a blue border */
+/* each section gets a card look with a blue border */
 section {
   background-color: #ffffff;
   border-style: solid;
@@ -107,6 +122,30 @@ section {
   border-width: 2px;
   border-radius: 8px;
   padding: 1.5rem;
+}
+
+/* id selector that gives the attendance section a pink left accent */
+#attendance {
+  border-left: 4px solid var(--pink, hotpink);
+}
+
+/* uses has() so sections that contain a subheading get a faint blue tint */
+section:has(h3) {
+  background-color: color-mix(in srgb, var(--blue), white 95%);
+}
+
+/* class selector that applies a base style to any element with the note class */
+.note {
+  border-left: 3px solid var(--pink, hotpink);
+  padding-left: 0.5rem;
+}
+
+/* combines element and class to add extra styling specifically on p elements with the note class */
+p.note {
+  background-color: color-mix(in srgb, var(--pink), white 88%);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
 }
 
 h2 {
@@ -122,13 +161,33 @@ h3 {
   color: var(--pink, hotpink);
 }
 
-a {
+/* adjacent sibling combinator targets the paragraph sitting right after a section heading */
+h2 + p {
+  font-weight: 500;
+}
+
+/* general sibling combinator catches any paragraph that follows a heading, not just the first */
+h2 ~ p {
+  line-height: 1.7;
+}
+
+/* descendant combinator to style links anywhere inside main */
+main a {
   color: var(--pink, hotpink);
   text-decoration: underline;
 }
 
-a:hover {
+main a:hover {
   color: var(--blue, #1565c0);
+}
+
+/* attribute selector to style only text inputs to match the theme */
+input[type="text"] {
+  border-style: solid;
+  border-color: var(--blue, #1565c0);
+  border-width: 1px;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
 }
 
 /* keep images responsive but not too wide */
@@ -138,7 +197,7 @@ img {
   height: auto;
 }
 
-/* submit button: block so it sits on its own line */
+/* submit button with hover and active states nested inside using the & selector */
 button {
   display: block;
   background-color: var(--pink, hotpink);
@@ -151,14 +210,14 @@ button {
   height: 2.5rem;
   font-size: 10pt;
   cursor: pointer;
-}
 
-button:hover {
-  background-color: var(--blue, #1565c0);
-}
+  &:hover {
+    background-color: var(--blue, #1565c0);
+  }
 
-button:active {
-  background-color: hsl(220, 80%, 30%);
+  &:active {
+    background-color: hsl(220, 80%, 30%);
+  }
 }
 
 /* footer sits at the bottom, matches the header color */
@@ -169,7 +228,7 @@ footer {
   padding: 1rem;
 }
 
-/* reflow layout for phones — tighten spacing and go full width */
+/* reflows the layout on phones to tighten spacing and go full width */
 @media (max-width: 600px) {
   header h1 {
     font-size: 1.2rem;
