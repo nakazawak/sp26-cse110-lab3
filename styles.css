@@ -228,7 +228,7 @@ footer {
   padding: 1rem;
 }
 
-/* reflows the layout on phones to tighten spacing and go full width */
+/*reflows the layout on phones to tighten spacing and go full width */
 @media (max-width: 600px) {
   header h1 {
     font-size: 1.2rem;
