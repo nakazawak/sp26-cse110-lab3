@@ -12,6 +12,10 @@
 |------|-----------|---------------------|----------|
 |      |           |                     |          |
 
-## Action Items
+## To Do Items
 - [ ] 
+
+##Big Announcements
+
+##Important Dates
 
